@@ -31,6 +31,7 @@ public class Medico {
     @Column(name = "horario_fin")
     private LocalTime horarioFin;
 
+    @Column(name = "activo")
     private Boolean activo;
 
     @Column(name = "id_usuario")
