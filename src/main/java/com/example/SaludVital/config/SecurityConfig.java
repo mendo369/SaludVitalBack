@@ -17,6 +17,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // ✅ Nueva forma de deshabilitar CSRF
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/especialidades/**").permitAll()
+                        .requestMatchers("/api/medicos/**").permitAll()
+                        .requestMatchers("/api/aseguradoras/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
