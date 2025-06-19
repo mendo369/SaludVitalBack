@@ -20,6 +20,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/especialidades/**").permitAll()
                         .requestMatchers("/api/medicos/**").permitAll()
                         .requestMatchers("/api/aseguradoras/**").permitAll()
+                        .requestMatchers("/api/pacientes/**").permitAll()
+                        .requestMatchers("/api/tipos-paciente/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
