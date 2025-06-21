@@ -1,15 +1,13 @@
 package com.example.SaludVital.domain.entities;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.math.BigDecimal;
 
 @Data
 @Entity
 @Table(name = "servicios_adicionales")
 public class ServicioAdicional {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idServicio;
@@ -17,7 +15,10 @@ public class ServicioAdicional {
     @Column(name = "nombre_servicio", nullable = false, unique = true)
     private String nombreServicio;
 
-    private BigDecimal costo;
+    @Column(nullable = false)
+    private Double costo;
+
     private String descripcion;
+
     private Boolean activo;
 }

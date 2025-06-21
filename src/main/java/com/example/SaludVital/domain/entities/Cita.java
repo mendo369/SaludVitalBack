@@ -3,8 +3,8 @@ package com.example.SaludVital.domain.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -15,40 +15,45 @@ public class Cita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCita;
 
-    @Column(name = "id_paciente")
-    private Integer idPaciente;
+    @ManyToOne
+    @JoinColumn(name = "id_paciente")
+    private Paciente paciente;
 
-    @Column(name = "id_medico")
-    private Integer idMedico;
+    @ManyToOne
+    @JoinColumn(name = "id_medico")
+    private Medico medico;
 
-    @Column(name = "id_tipo_consulta")
-    private Integer idTipoConsulta;
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_consulta")
+    private TipoConsulta tipoConsulta;
 
-    @Column(name = "fecha_cita")
+    @ManyToOne
+    @JoinColumn(name = "id_estado")
+    private EstadoCita estadoCita;
+
+    @Column(name = "fecha_cita", nullable = false)
     private LocalDate fechaCita;
 
-    @Column(name = "hora_cita")
+    @Column(name = "hora_cita", nullable = false)
     private LocalTime horaCita;
-
-    @Column(name = "id_estado")
-    private Integer idEstado;
 
     private String observaciones;
 
-    @Column(name = "costo_consulta")
+    @Column(name = "costo_consulta", nullable = false)
     private Double costoConsulta;
 
     @Column(name = "descuento_aplicado")
     private Double descuentoAplicado;
 
-    @Column(name = "costo_total")
+    @Column(name = "costo_total", nullable = false)
     private Double costoTotal;
 
-    @Column(name = "fecha_creacion")
-    private LocalDateTime fechaCreacion;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario_registro")
+    private Usuario usuarioRegistro;
 
-    @Column(name = "id_usuario_registro")
-    private Integer idUsuarioRegistro;
+    @Column(name = "fecha_creacion", nullable = false)
+    private LocalDateTime fechaCreacion;
 
     @Column(name = "hora_llegada")
     private LocalDateTime horaLlegada;

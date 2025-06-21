@@ -16,22 +16,31 @@ public class Factura {
     @Column(name = "numero_factura", nullable = false, unique = true)
     private String numeroFactura;
 
-    @Column(name = "id_paciente")
-    private Integer idPaciente;
+    @ManyToOne
+    @JoinColumn(name = "id_paciente")
+    private Paciente paciente;
 
-    @Column(name = "id_cita")
-    private Integer idCita;
+    @ManyToOne
+    @JoinColumn(name = "id_cita")
+    private Cita cita;
 
-    @Column(name = "fecha_factura")
+    @Column(name = "fecha_factura", nullable = false)
     private LocalDateTime fechaFactura;
 
+    @Column(nullable = false)
     private Double subtotal;
+
+    @Column(nullable = false)
     private Double descuentos;
+
+    @Column(nullable = false)
     private Double impuestos;
+
+    @Column(nullable = false)
     private Double total;
 
-    @Column(name = "estado_pago")
-    private String estadoPago = "PENDIENTE";
+    @Column(name = "estado_pago", nullable = false)
+    private String estadoPago;
 
     @Column(name = "fecha_pago")
     private LocalDateTime fechaPago;

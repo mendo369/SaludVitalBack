@@ -12,21 +12,21 @@ public class DetalleFactura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDetalle;
 
-    @Column(name = "id_factura")
-    private Integer idFactura;
+    @Column(name = "tipo_item", nullable = false)
+    private String tipoItem;
 
-    @Column(name = "tipo_item")
-    private String tipoItem; // CONSULTA o SERVICIO
+    @Column(name = "id_referencia", nullable = false)
+    private Integer idReferencia;
 
-    @Column(name = "id_referencia")
-    private Integer idReferencia; // id_cita o id_servicio_paciente
-
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
+
+    @Column(nullable = false)
     private Integer cantidad;
 
-    @Column(name = "precio_unitario")
+    @Column(name = "precio_unitario", nullable = false)
     private Double precioUnitario;
 
-    @Column(name = "subtotal")
+    @Column(name = "subtotal", nullable = false)
     private Double subtotal;
 }
