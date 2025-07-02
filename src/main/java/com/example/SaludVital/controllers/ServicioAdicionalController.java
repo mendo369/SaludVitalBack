@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/servicios-adicionales")
@@ -35,6 +36,18 @@ public class ServicioAdicionalController {
     public ResponseEntity<ServicioAdicional> getServicioAdicionalById(@PathVariable Integer id) {
         ServicioAdicional servicioAdicional = servicioAdicionalService.getServicioAdicionalById(id);
         return new ResponseEntity<>(servicioAdicional, HttpStatus.OK);
+    }
+
+    @GetMapping("/estadisticas/mensual")
+    public ResponseEntity<Map<String, Object>> getMonthlyAdditionalServicesStats() {
+        Map<String, Object> stats = servicioAdicionalService.getMonthlyAdditionalServicesStats();
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/estadisticas/mas-solicitado")
+    public ResponseEntity<Map<String, Object>> getMostRequestedService() {
+        Map<String, Object> stats = servicioAdicionalService.getMostRequestedService();
+        return ResponseEntity.ok(stats);
     }
 
     // ACTUALIZAR un servicio adicional

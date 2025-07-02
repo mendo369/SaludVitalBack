@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -53,6 +54,18 @@ public class CitaService {
 
     public List<Cita> getCitasByPacienteId(Integer idPaciente) {
         return citaRepository.findByPaciente_IdPaciente(idPaciente);
+    }
+
+    public Long countCanceledAppointments() {
+        return citaRepository.countAllCanceledAppointments();
+    }
+
+    public List<Cita> getAllCanceledAppointments() {
+        return citaRepository.findAllCanceledAppointments();
+    }
+
+    public List<Map<String, Object>> getMedicoCitasStats() {
+        return citaRepository.countCitasByMedico();
     }
 
     public Cita updateCita(Integer id, Cita citaDetails) {

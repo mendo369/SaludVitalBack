@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -28,6 +29,28 @@ public class ServicioAdicionalService {
     public ServicioAdicional getServicioAdicionalById(Integer id) {
         return servicioAdicionalRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Servicio adicional no encontrado con ID: " + id));
+    }
+
+    public Map<String, Object> getMonthlyAdditionalServicesStats() {
+        Object[] stats = servicioAdicionalRepository.getMonthlyAdditionalServicesStats();
+
+        return Map.of(
+                "cantidad_servicios", stats[0],
+                "total_ingresos", stats[1]
+        );
+    }
+
+    public Map<String, Object> getMostRequestedService() {
+        Object[] result = servicioAdicionalRepository.getMostRequestedServiceStats();
+
+        if (result == null || result.length < 2) {
+            return Map.of("nombre_servicio", "Ninguno", "total_cantidad", 0);
+        }
+
+        return Map.of(
+                "nombre_servicio", result[0],
+                "total_cantidad", result[1]
+        );
     }
 
     // Actualizar un servicio adicional

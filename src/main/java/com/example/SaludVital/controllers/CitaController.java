@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/citas")
@@ -41,6 +42,24 @@ public class CitaController {
     public ResponseEntity<List<Cita>> getCitasByPaciente(@PathVariable Integer idPaciente) {
         List<Cita> citas = citaService.getCitasByPacienteId(idPaciente);
         return new ResponseEntity<>(citas, HttpStatus.OK);
+    }
+
+    @GetMapping("/estadisticas/canceladas")
+    public ResponseEntity<Long> countCanceledAppointments() {
+        Long cantidadCanceladas = citaService.countCanceledAppointments();
+        return ResponseEntity.ok(cantidadCanceladas);
+    }
+
+    @GetMapping("/canceladas")
+    public ResponseEntity<List<Cita>> getAllCanceledAppointments() {
+        List<Cita> citasCanceladas = citaService.getAllCanceledAppointments();
+        return ResponseEntity.ok(citasCanceladas);
+    }
+
+    @GetMapping("/estadisticas/por-medico")
+    public ResponseEntity<List<Map<String, Object>>> getCitasPorMedico() {
+        List<Map<String, Object>> stats = citaService.getMedicoCitasStats();
+        return ResponseEntity.ok(stats);
     }
 
     // ACTUALIZAR una cita
