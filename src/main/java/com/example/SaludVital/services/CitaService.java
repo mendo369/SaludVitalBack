@@ -51,6 +51,10 @@ public class CitaService {
                 .orElseThrow(() -> new RuntimeException("Cita no encontrada con ID: " + id));
     }
 
+    public List<Cita> getCitasByPacienteId(Integer idPaciente) {
+        return citaRepository.findByPaciente_IdPaciente(idPaciente);
+    }
+
     public Cita updateCita(Integer id, Cita citaDetails) {
         Cita cita = getCitaById(id);
 

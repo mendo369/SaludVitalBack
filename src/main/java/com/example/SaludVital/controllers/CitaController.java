@@ -37,6 +37,12 @@ public class CitaController {
         return new ResponseEntity<>(cita, HttpStatus.OK);
     }
 
+    @GetMapping("/paciente/{idPaciente}")
+    public ResponseEntity<List<Cita>> getCitasByPaciente(@PathVariable Integer idPaciente) {
+        List<Cita> citas = citaService.getCitasByPacienteId(idPaciente);
+        return new ResponseEntity<>(citas, HttpStatus.OK);
+    }
+
     // ACTUALIZAR una cita
     @PutMapping("/{id}")
     public ResponseEntity<Cita> updateCita(
