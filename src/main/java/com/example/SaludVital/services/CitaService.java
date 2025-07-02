@@ -1,7 +1,9 @@
 package com.example.SaludVital.services;
 
 import com.example.SaludVital.domain.entities.Cita;
+import com.example.SaludVital.domain.entities.EstadoCita;
 import com.example.SaludVital.domain.repositories.CitaRepository;
+import com.example.SaludVital.domain.repositories.EstadoCitaRepository;
 import com.example.SaludVital.domain.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ import java.util.Optional;
 
 @Service
 public class CitaService {
+
+    @Autowired
+    private EstadoCitaRepository estadoCitaRepository;
 
     @Autowired
     private CitaRepository citaRepository;
@@ -46,11 +51,20 @@ public class CitaService {
                 .orElseThrow(() -> new RuntimeException("Cita no encontrada con ID: " + id));
     }
 
-    // ✅ ACTUALIZAR una cita
     public Cita updateCita(Integer id, Cita citaDetails) {
         Cita cita = getCitaById(id);
 
-        // Actualizar campos permitidos
+        // Solo actualizamos estadoCita si viene información
+        if (citaDetails.getEstadoCita() != null && citaDetails.getEstadoCita().getIdEstado() != null) {
+            Integer idEstado = citaDetails.getEstadoCita().getIdEstado();
+
+            EstadoCita estadoCompleto = estadoCitaRepository.findById(idEstado)
+                    .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
+
+            cita.setEstadoCita(estadoCompleto); // Aquí asignas el objeto completo
+        }
+
+        // Actualiza otros campos solo si vienen datos nuevos
         if (citaDetails.getPaciente() != null) {
             cita.setPaciente(citaDetails.getPaciente());
         }
@@ -59,9 +73,6 @@ public class CitaService {
         }
         if (citaDetails.getTipoConsulta() != null) {
             cita.setTipoConsulta(citaDetails.getTipoConsulta());
-        }
-        if (citaDetails.getEstadoCita() != null) {
-            cita.setEstadoCita(citaDetails.getEstadoCita());
         }
         if (citaDetails.getFechaCita() != null) {
             cita.setFechaCita(citaDetails.getFechaCita());

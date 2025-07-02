@@ -30,6 +30,11 @@ public class MedicoController {
         return new ResponseEntity<>(medicos, HttpStatus.OK);
     }
 
+    @GetMapping("/especialidad/{idEspecialidad}")
+    public List<Medico> listarMedicosPorEspecialidad(@PathVariable Integer idEspecialidad) {
+        return medicoService.getMedicosBySpecialty(idEspecialidad);
+    }
+
     // OBTENER un médico por ID
     @GetMapping("/{id}")
     public ResponseEntity<Medico> getMedicoById(@PathVariable Integer id) {

@@ -34,6 +34,7 @@ public class AseguradoraService {
     public Aseguradora updateAseguradora(Integer id, Aseguradora aseguradoraDetails) {
         Aseguradora aseguradora = getAseguradoraById(id);
 
+        aseguradora.setDescuento(aseguradoraDetails.getDescuento());
         aseguradora.setNombreAseguradora(aseguradoraDetails.getNombreAseguradora());
         aseguradora.setTelefono(aseguradoraDetails.getTelefono());
         aseguradora.setEmail(aseguradoraDetails.getEmail());

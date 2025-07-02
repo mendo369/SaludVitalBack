@@ -64,6 +64,10 @@ public class MedicoService {
         return medicoRepository.findAll();
     }
 
+    public List<Medico> getMedicosBySpecialty(Integer idEspecialidad) {
+        return medicoRepository.findByIdEspecialidad(idEspecialidad);
+    }
+
     public Medico getMedicoById(Integer id) {
         return medicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Médico no encontrado con ID: " + id));
