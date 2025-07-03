@@ -5,6 +5,7 @@ import com.example.SaludVital.domain.repositories.ServicioAdicionalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,12 +33,28 @@ public class ServicioAdicionalService {
     }
 
     public Map<String, Object> getMonthlyAdditionalServicesStats() {
-        Object[] stats = servicioAdicionalRepository.getMonthlyAdditionalServicesStats();
+        try {
+            Object[] stats = servicioAdicionalRepository.getMonthlyAdditionalServicesStats();
 
-        return Map.of(
-                "cantidad_servicios", stats[0],
-                "total_ingresos", stats[1]
-        );
+            if (stats == null || stats.length < 2) {
+                return Map.of(
+                        "cantidad_servicios", 0,
+                        "total_ingresos", 0.0
+                );
+            }
+
+            return Map.of(
+                    "cantidad_servicios", (stats[0] != null ? stats[0] : 0),
+                    "total_ingresos", (stats[1] != null ? stats[1] : 0.0)
+            );
+        } catch (Exception e) {
+            System.err.println("Error al obtener estadísticas mensuales: " + e.getMessage());
+            e.printStackTrace();
+            return Map.of(
+                    "cantidad_servicios", 0,
+                    "total_ingresos", 0.0
+            );
+        }
     }
 
     public Map<String, Object> getMostRequestedService() {
