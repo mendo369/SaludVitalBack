@@ -8,4 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface EstadoCitaRepository extends JpaRepository<EstadoCita, Integer> {
+    Optional<EstadoCita> findByNombreEstado(String nombreEstado);
 }

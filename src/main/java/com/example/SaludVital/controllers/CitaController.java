@@ -1,6 +1,7 @@
 package com.example.SaludVital.controllers;
 
 import com.example.SaludVital.domain.entities.Cita;
+import com.example.SaludVital.domain.entities.Factura;
 import com.example.SaludVital.services.CitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,6 +66,26 @@ public class CitaController {
     public ResponseEntity<List<Map<String, Object>>> getCitasPorMedico() {
         List<Map<String, Object>> stats = citaService.getMedicoCitasStats();
         return ResponseEntity.ok(stats);
+    }
+
+    // Endpoint para agregar servicios adicionales a una cita
+    @PostMapping("/{citaId}/servicios-adicionales")
+    public ResponseEntity<Void> addAdditionalServices(
+            @PathVariable Integer citaId,
+            @RequestBody Map<String, Object> request
+    ) {
+        List<Integer> servicioIds = (List<Integer>) request.get("servicioIds");
+        Map<Integer, Integer> cantidades = (Map<Integer, Integer>) request.get("cantidades");
+
+        citaService.addAdditionalServicesToAppointment(citaId, servicioIds, cantidades);
+        return ResponseEntity.ok().build();
+    }
+
+    // Endpoint para finalizar la cita y generar la factura
+    @PostMapping("/{citaId}/finalizar")
+    public ResponseEntity<Factura> finalizeAppointment(@PathVariable Integer citaId) {
+        Factura factura = citaService.finalizeAppointmentAndGenerateInvoice(citaId);
+        return ResponseEntity.ok(factura);
     }
 
     // ACTUALIZAR una cita

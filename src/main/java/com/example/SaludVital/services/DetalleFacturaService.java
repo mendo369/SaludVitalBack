@@ -35,7 +35,7 @@ public class DetalleFacturaService {
         DetalleFactura detalleFactura = getDetalleFacturaById(id);
 
         detalleFactura.setTipoItem(detalleFacturaDetails.getTipoItem());
-        detalleFactura.setIdReferencia(detalleFacturaDetails.getIdReferencia());
+        detalleFactura.setIdDetalle(detalleFacturaDetails.getIdDetalle());
         detalleFactura.setDescripcion(detalleFacturaDetails.getDescripcion());
         detalleFactura.setCantidad(detalleFacturaDetails.getCantidad());
         detalleFactura.setPrecioUnitario(detalleFacturaDetails.getPrecioUnitario());

@@ -34,14 +34,9 @@ public class ServicioPacienteService {
     public ServicioPaciente updateServicioPaciente(Integer id, ServicioPaciente servicioPacienteDetails) {
         ServicioPaciente servicioPaciente = getServicioPacienteById(id);
 
-        servicioPaciente.setPaciente(servicioPacienteDetails.getPaciente());
-        servicioPaciente.setServicio(servicioPacienteDetails.getServicio());
+        servicioPaciente.setServicioAdicional(servicioPacienteDetails.getServicioAdicional());
         servicioPaciente.setCita(servicioPacienteDetails.getCita());
-        servicioPaciente.setFechaServicio(servicioPacienteDetails.getFechaServicio());
         servicioPaciente.setCantidad(servicioPacienteDetails.getCantidad());
-        servicioPaciente.setCostoUnitario(servicioPacienteDetails.getCostoUnitario());
-        servicioPaciente.setCostoTotal(servicioPacienteDetails.getCostoTotal());
-        servicioPaciente.setObservaciones(servicioPacienteDetails.getObservaciones());
 
         return servicioPacienteRepository.save(servicioPaciente);
     }
