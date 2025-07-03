@@ -29,4 +29,6 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
             "GROUP BY m.id_medico, m.nombre " +
             "ORDER BY cantidadCitas DESC", nativeQuery = true)
     List<Map<String, Object>> countCitasByMedico();
+
+    List<Cita> findByMedico_IdMedico(Integer idMedico);
 }

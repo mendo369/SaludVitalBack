@@ -38,6 +38,11 @@ public class CitaController {
         return new ResponseEntity<>(cita, HttpStatus.OK);
     }
 
+    @GetMapping("/medico/{idUsuario}")
+    public List<Cita> getCitasPorMedico(@PathVariable Integer idUsuario) {
+        return citaService.getCitasByMedicoUsuarioId(idUsuario);
+    }
+
     @GetMapping("/paciente/{idPaciente}")
     public ResponseEntity<List<Cita>> getCitasByPaciente(@PathVariable Integer idPaciente) {
         List<Cita> citas = citaService.getCitasByPacienteId(idPaciente);

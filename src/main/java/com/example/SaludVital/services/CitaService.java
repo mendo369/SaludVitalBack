@@ -2,8 +2,10 @@ package com.example.SaludVital.services;
 
 import com.example.SaludVital.domain.entities.Cita;
 import com.example.SaludVital.domain.entities.EstadoCita;
+import com.example.SaludVital.domain.entities.Medico;
 import com.example.SaludVital.domain.repositories.CitaRepository;
 import com.example.SaludVital.domain.repositories.EstadoCitaRepository;
+import com.example.SaludVital.domain.repositories.MedicoRepository;
 import com.example.SaludVital.domain.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class CitaService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private MedicoRepository medicoRepository;
 
     // ✅ CREAR una nueva cita
     public Cita createCita(Cita cita) {
@@ -54,6 +59,16 @@ public class CitaService {
 
     public List<Cita> getCitasByPacienteId(Integer idPaciente) {
         return citaRepository.findByPaciente_IdPaciente(idPaciente);
+    }
+
+    // ✅ OBTENER citas por idUsuario del médico
+    public List<Cita> getCitasByMedicoUsuarioId(Integer idUsuario) {
+        // Buscar al médico usando el idUsuario
+        Medico medico = medicoRepository.findByidUsuario(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Médico no encontrado para el usuario con ID: " + idUsuario));
+
+        // Devolver las citas asociadas a ese médico
+        return citaRepository.findByMedico_IdMedico(medico.getIdMedico());
     }
 
     public Long countCanceledAppointments() {
